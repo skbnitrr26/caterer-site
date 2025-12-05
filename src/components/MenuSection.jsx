@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, X, ChevronRight } from 'lucide-react';
 
-// Expanded Data with descriptions and gallery images
 const menuContent = [
   { 
     category: "North Indian", 
@@ -69,22 +68,23 @@ const menuContent = [
 
 const MenuSection = () => {
   const [selectedItem, setSelectedItem] = useState(null);
-  const [showFullMenu, setShowFullMenu] = useState(false); // State for full menu modal
+  const [showFullMenu, setShowFullMenu] = useState(false);
 
   return (
     <section id="menu" className="py-24 bg-neutral-900 text-white relative">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12">
+        {/* Updated Header Layout for Mobile Responsiveness */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 space-y-6 md:space-y-0">
           <div>
             <h2 className="text-amber-500 text-sm tracking-[0.3em] uppercase mb-2">Our Menu</h2>
             <h3 className="text-4xl font-bold font-serif">A Wide Range of <span className="text-amber-500">Cuisines</span></h3>
           </div>
-          {/* Updated Button */}
+          {/* Changed 'hidden md:flex' to 'flex' so it shows on all screens */}
           <button 
             onClick={() => setShowFullMenu(true)}
-            className="hidden md:flex items-center text-amber-500 font-semibold hover:text-amber-400 transition-colors mt-4 md:mt-0"
+            className="flex items-center text-amber-500 font-semibold hover:text-amber-400 transition-colors mt-4 md:mt-0 group"
           >
-            View Full Menu <ArrowRight size={20} className="ml-2" />
+            View Full Menu <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
@@ -95,7 +95,10 @@ const MenuSection = () => {
               key={idx}
               layoutId={`card-${item.category}`} 
               onClick={() => setSelectedItem(item)}
-              whileHover={{ y: -5 }}
+              whileHover={{ 
+                y: -5,
+                transition: { duration: 0.3 }
+              }}
               className="bg-neutral-800 rounded-xl overflow-hidden shadow-lg border border-neutral-700 h-full group cursor-pointer hover:shadow-amber-500/20 hover:border-amber-500/50 transition-all duration-300 relative"
             >
               <div className="h-48 overflow-hidden relative">
@@ -105,11 +108,7 @@ const MenuSection = () => {
                   alt={item.category} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                
-                {/* Adjusted Overlay for lighter look */}
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300"></div>
-
-                {/* SHINE EFFECT */}
                 <div className="absolute inset-0 -translate-x-full group-hover:animate-[shine_1.5s_ease-in-out] bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 z-20 pointer-events-none"></div>
               </div>
               
@@ -212,7 +211,6 @@ const MenuSection = () => {
               exit={{ opacity: 0, scale: 0.95 }}
               className="relative w-full max-w-5xl bg-neutral-900 rounded-2xl overflow-hidden shadow-2xl border border-amber-500/20 h-[85vh] flex flex-col"
             >
-              {/* Header */}
               <div className="p-6 border-b border-neutral-800 flex justify-between items-center bg-neutral-900 sticky top-0 z-10">
                 <div>
                   <h2 className="text-3xl font-serif font-bold text-white">Full Menu</h2>
@@ -226,7 +224,6 @@ const MenuSection = () => {
                 </button>
               </div>
 
-              {/* Scrollable Content */}
               <div className="overflow-y-auto p-8 custom-scrollbar">
                 <div className="grid md:grid-cols-2 gap-12">
                   {menuContent.map((section, idx) => (
@@ -251,7 +248,6 @@ const MenuSection = () => {
                 </div>
               </div>
               
-              {/* Footer CTA */}
               <div className="p-6 border-t border-neutral-800 bg-neutral-900 text-center">
                 <p className="text-neutral-400 text-sm mb-3">Want to customize this menu for your event?</p>
                 <a href="#contact" onClick={() => setShowFullMenu(false)} className="text-amber-500 font-bold hover:underline">Contact Us for a Custom Quote</a>

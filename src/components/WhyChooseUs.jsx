@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
-// Use the latest data file - defined locally to avoid import issues
+import { CheckCircle, ChefHat } from 'lucide-react'; // Added ChefHat import
+
 const whyChooseContent = {
   brandName: "Shree Shyam Caterers",
   whyChooseUs: [
@@ -49,8 +49,16 @@ const WhyChooseUs = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-12">
-              Why Clients Choose <span className="text-amber-500">{whyChooseContent.brandName}</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-12 flex flex-col md:flex-row items-center justify-center gap-3">
+              <span>Why Clients Choose</span>
+              
+              {/* Brand Name with Icon */}
+              <span className="text-amber-500 inline-flex items-center">
+                <div className="bg-amber-500/10 p-2 rounded-full border border-amber-500/20 mr-3">
+                   <img src="/logo.png" alt="Logo" className="w-6 h-6 object-cover rounded-full" />
+                </div>
+                {whyChooseContent.brandName}
+              </span>
             </h2>
           </motion.div>
 
@@ -58,16 +66,14 @@ const WhyChooseUs = () => {
              {whyChooseContent.whyChooseUs.map((point, idx) => (
                <motion.div 
                  key={idx}
-                 initial={{ opacity: 0, scale: 0.9, backgroundColor: "rgba(38, 38, 38, 0.4)" }} // Initial dark bg
+                 initial={{ opacity: 0, scale: 0.9, backgroundColor: "rgba(38, 38, 38, 0.4)" }}
                  whileInView={{ opacity: 1, scale: 1 }}
-                 // Updated hover effect to match Service Cards (Brownish color)
                  whileHover={{ 
                    scale: 1.02, 
                    backgroundColor: "rgba(120, 53, 15, 0.6)" 
                  }}
-                 transition={{ delay: idx * 0.01, duration: 0.3 }}
+                 transition={{ delay: idx * 0.1, duration: 0.3 }}
                  viewport={{ once: true }}
-                 // Removed Tailwind bg class to let Framer handle the background color animation
                  className="border border-neutral-800 p-8 rounded-xl flex flex-col items-start shadow-lg hover:border-amber-500/50 hover:shadow-amber-500/10 transition-all group h-full cursor-pointer"
                >
                  <div className="bg-amber-500/10 p-3 rounded-full mb-4 group-hover:bg-amber-500 transition-colors">

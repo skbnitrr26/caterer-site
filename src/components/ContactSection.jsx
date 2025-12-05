@@ -3,12 +3,12 @@ import { Phone, Mail, MapPin } from 'lucide-react';
 
 const contactContent = {
   // Display format (readable)
-  phone: "+91 8791278215", 
+  phone: "+91 7017091740", 
   email: "Shreeshyamcaterers05@gmail.com",
   address: "Agra, Uttar Pradesh",
   // API format: Country Code (91) + Phone Number (8791278215) - No spaces, no '+'
   // Ensure this number is active on WhatsApp!
-  whatsappNumber: "917762857008" 
+  whatsappNumber: "917017091740"
 };
 
 const ContactSection = () => {

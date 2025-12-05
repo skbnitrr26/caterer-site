@@ -103,7 +103,6 @@ export const content = {
       image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=400" 
     }
   ],
-  // UPDATED SECTION: Array of Objects with Description
   whyChooseUs: [
     {
       title: "10+ Years of Catering Legacy",
@@ -134,9 +133,77 @@ export const content = {
       description: "Premium catering doesn't have to be expensive. We offer competitive pricing packages designed to fit various budgets."
     }
   ],
+  // UPDATED TESTIMONIALS SECTION
   testimonials: [
-    { name: "Priya & Manish", event: "Wedding", text: "Superb taste and service! Our wedding guests loved the food. Highly recommended!" },
-    { name: "Rahul Sharma", event: "Corporate Event", text: "The presentation and hygiene were top-notch. Best catering in Agra." },
-    { name: "Anjali Gupta", event: "Birthday Party", text: "Delicious food and very cooperative staff. Made our day special." }
+    { 
+      text: "Our special day was made more special with the delicious food....",
+      name: "Adv. Rakesh Verma", 
+      event: "Practice at Sadar Tehsil" 
+    },
+    { 
+      text: "Staff behaviour was excellent.",
+      name: "Vijendra Singh", 
+      event: "RTD Head at Control Room" 
+    },
+    { 
+      text: "Food quality is very good, tasty food, supportive staff.",
+      name: "Jagdish Singh Kushwah", 
+      event: "Member at BSNL" 
+    },
+    { 
+      text: "Brilliant! Wonderful finger food, beautifully presented, tastes amazing.",
+      name: "Gama Dubey", 
+      event: "Member at ADA" 
+    },
+    { 
+      text: "The food was so delicious and the service was really great, too! The Dal Baati was so yummy and I ate the whole thing.",
+      name: "Kusum Middha", 
+      event: "Kitty Planner" 
+    },
+    { 
+      text: "Had an amazing experience at Shree Shyam Caterers! From the moment I walked in, the staff was friendly and helpful.",
+      name: "Pawan Garg", 
+      event: "Agra Petha Store" 
+    },
+    { 
+      text: "The food is extremely good; prices are very reasonable considering the quantity of food, my new favourite now.",
+      name: "Rajesh Agarwal", 
+      event: "Rajesh Scientific Industries" 
+    },
+    { 
+      text: "We just want to say thank you so much for wonderful food and beautiful decoration you provided. Good job.",
+      name: "Sanjeev K Singhal", 
+      event: "Krishna Shubh Pvt Ltd" 
+    },
+    { 
+      text: "Polite staff, on time service & tasty food. We extend our thanks to shree shyam team for the wonderful show put together for our house party.",
+      name: "Rajeev Singhal", 
+      event: "Agra Lotus Petha" 
+    },
+    { 
+      text: "Fabulous service & tasty food... on time delivery, it was wonderful experience for having lunch for our kitty party.",
+      name: "Honey Tiwari", 
+      event: "Teacher at St. Paul's" 
+    },
+    { 
+      text: "Hygiene, packing, quantity is at par and also the rates are reliable.",
+      name: "Rishi Jain", 
+      event: "Jain Traders" 
+    },
+    { 
+      text: "Mr. Arpit and his team are praised for treating events as their own, providing excellent service, and ensuring guest satisfaction.",
+      name: "Pankaj Gupta", 
+      event: "MD R.B.S College" 
+    },
+    { 
+      text: "Every guest who attended our wedding appreciated the quality, cleanliness, and most importantly, the taste of the food.",
+      name: "Rajesh Shrivastava", 
+      event: "Fauji Chemist" 
+    },
+    { 
+      text: "The quality, hygiene, and taste they provide are unforgettable, along with the variety of food offered.",
+      name: "Sachin Jain", 
+      event: "Rangjee Heights" 
+    }
   ]
 };

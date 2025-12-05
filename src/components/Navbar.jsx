@@ -13,6 +13,23 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
+  // NEW: Effect to handle page refresh behavior (Reset URL and Scroll)
+  useEffect(() => {
+    // 1. Disable browser's default scroll restoration to ensure we start at top
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    // 2. Scroll to top immediately
+    window.scrollTo(0, 0);
+
+    // 3. Clear the URL hash if it exists (e.g., change localhost:5173/#contact to localhost:5173)
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }, []);
+
+  // Handle scroll spy and header background
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -22,6 +39,7 @@ const Navbar = () => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
+          // Adjust offset for sticky header
           if (rect.top <= 150 && rect.bottom >= 150) {
             current = section;
           }
@@ -33,11 +51,20 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle manual navigation click
   const handleNavClick = (e, sectionId) => {
     e.preventDefault();
+    
+    // 1. Update URL hash manually without reloading (e.g. adds #contact)
+    window.history.pushState(null, '', `#${sectionId}`);
+    
+    // 2. Set active state
     setActiveSection(sectionId);
+    
+    // 3. Close mobile menu
     setIsOpen(false);
     
+    // 4. Smooth scroll to section with offset for header
     const element = document.getElementById(sectionId);
     if (element) {
       const navHeight = 80;
@@ -52,26 +79,16 @@ const Navbar = () => {
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-neutral-900 shadow-lg' : 'bg-transparent py-6'}`}>
       <div className="container mx-auto px-6 flex justify-between items-center relative z-50">
-        
-        {/* LOGO SECTION WITH ICON */}
         <div className="flex items-center cursor-pointer" onClick={(e) => handleNavClick(e, 'home')}>
-          {/* Icon Container */}
           <div className="bg-amber-500/10 p-2 rounded-full mr-3 border border-amber-500/20">
             <img src="/logo.png" alt="Logo" className="w-8 h-8 object-cover rounded-full" />
           </div>
-          
-          {/* Brand Name Text */}
           <div className="flex flex-col items-start">
-            <h1 className="text-xl md:text-2xl font-bold text-amber-500 tracking-wider uppercase leading-none">
-              {brandContent.brandName}
-            </h1>
-            <span className="text-[10px] md:text-xs text-neutral-400 tracking-[0.1em] hidden md:block mt-1">
-              {brandContent.proprietor}
-            </span>
+            <h1 className="text-xl md:text-2xl font-bold text-amber-500 tracking-wider uppercase leading-none">{brandContent.brandName}</h1>
+            <span className="text-[10px] md:text-xs text-neutral-400 tracking-[0.1em] hidden md:block mt-1">{brandContent.proprietor}</span>
           </div>
         </div>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8 text-sm font-medium tracking-wide text-neutral-300">
           {navLinks.map((item) => {
             const sectionId = item.toLowerCase();
@@ -92,7 +109,6 @@ const Navbar = () => {
           })}
         </div>
         
-        {/* Mobile Menu Button */}
         <button 
           className="md:hidden text-amber-500 z-50 relative p-2 focus:outline-none" 
           onClick={() => setIsOpen(!isOpen)}
@@ -102,11 +118,9 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Sidebar */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop: Visible background (dimmed) */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -115,15 +129,13 @@ const Navbar = () => {
               className="md:hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
             />
             
-            {/* Sidebar: Covers small area (w-64), visible background (bg-neutral-950) */}
             <motion.div 
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="md:hidden fixed top-0 right-0 h-screen w-64 bg-neutral-950 border-l border-neutral-800 z-50 flex flex-col items-center justify-center shadow-2xl"
+              className="md:hidden fixed top-0 right-0 h-screen w-64 bg-neutral-950/85 backdrop-blur-md border-l border-neutral-800 z-50 flex flex-col items-center justify-center shadow-2xl"
             >
-              {/* Close Button inside sidebar */}
               <button 
                 className="absolute top-6 right-6 text-amber-500 p-2 focus:outline-none" 
                 onClick={() => setIsOpen(false)}
@@ -140,7 +152,6 @@ const Navbar = () => {
                       key={item} 
                       href={`#${sectionId}`} 
                       onClick={(e) => handleNavClick(e, sectionId)} 
-                      // Small text size (text-lg) as requested
                       className={`text-lg font-serif tracking-wider py-3 w-full rounded-lg transition-all ${
                         isActive 
                           ? 'text-amber-500 font-bold bg-amber-500/10' 
